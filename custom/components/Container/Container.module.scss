@@ -1,0 +1,6 @@
+.Container {
+	@apply w-full h-full bg-gray-400;
+	& .child {
+		@apply w-2/4 bg-primary h-2/4;
+	}
+}
