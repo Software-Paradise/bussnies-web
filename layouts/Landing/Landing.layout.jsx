@@ -4,6 +4,8 @@ import React from 'react'
 import styles from './Landing.module.scss'
 //component imports
 import { Navbar } from '../../custom/components'
+//assets import
+import { alysystemLogo } from '../../public'
 
 /**
  * Custom layout to display in column and screen-wide every section there is in children
@@ -11,9 +13,21 @@ import { Navbar } from '../../custom/components'
  * @returns {React.FunctionComponent}
  */
 function Landing({ children }) {
+	const links = [
+		{ label: 'Quiénes somos', to: '#' },
+		{ label: 'Servicios', to: '#' },
+		{ label: 'Beneficios', to: '#' },
+		{ label: 'Nuestro equipo', to: '#' },
+	]
+
 	return (
 		<div className={styles.Landing}>
-			<Navbar />
+			<Navbar
+				logo={{ src: alysystemLogo, alt: 'AlySystem logo' }}
+				links={links}
+				leftLinks={4}
+				rightLinks={2}
+			/>
 			{children}
 		</div>
 	)

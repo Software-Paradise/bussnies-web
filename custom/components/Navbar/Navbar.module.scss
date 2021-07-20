@@ -1,0 +1,31 @@
+.Navbar {
+	@apply w-screen flex font-medium text-xl;
+	min-height: 8rem;
+
+	&.lightTheme {
+		background: linear-gradient(
+			90deg,
+			rgba(224, 224, 224, 1) 0%,
+			rgba(255, 255, 255, 1) 50%,
+			rgba(224, 224, 224, 1) 100%
+		);
+	}
+
+	&.darkTheme {
+		background: linear-gradient(
+			90deg,
+			rgb(0, 0, 0) 0%,
+			rgb(39, 39, 39) 50%,
+			rgb(0, 0, 0) 100%
+		);
+	}
+
+	.Navbar___logo {
+		@apply flex flex-col self-center mx-4;
+		width: 13rem;
+	}
+
+	.Navbar___links {
+		@apply flex self-center;
+	}
+}

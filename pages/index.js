@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { LandingLayout } from '../layouts'
-import { TopScreen } from '../screens'
+import { TopScreen, InfoScreen } from '../screens'
 
 export default function Home() {
 	return (
@@ -37,9 +37,10 @@ export default function Home() {
 				<meta name="msapplication-TileColor" content="#2d2d2d"></meta>
 				<meta name="msapplication-TileImage" content="/192.png"></meta>
 			</Head>
-			<main>
+			<main className="font-sans bg-gray-900">
 				<LandingLayout>
 					<TopScreen />
+					<InfoScreen />
 				</LandingLayout>
 			</main>
 			<footer></footer>
