@@ -20,13 +20,18 @@ function Landing({ children }) {
 		{ label: 'Nuestro equipo', to: '#' },
 	]
 
+	const buttons = [
+		{ label: 'Criptomonedas', to: '#' },
+		{ label: 'Nuestras Apps', to: '#' },
+	]
+
 	return (
 		<div className={styles.Landing}>
 			<Navbar
 				logo={{ src: alysystemLogo, alt: 'AlySystem logo' }}
+				logoPosition="center"
 				links={links}
-				leftLinks={4}
-				rightLinks={2}
+				buttons={buttons}
 			/>
 			{children}
 		</div>

@@ -1,6 +1,6 @@
 .Navbar {
-	@apply w-screen flex font-medium text-xl;
-	min-height: 8rem;
+	@apply w-screen flex font-medium text-xl fixed;
+	min-height: 7rem;
 
 	&.lightTheme {
 		background: linear-gradient(
@@ -22,10 +22,27 @@
 
 	.Navbar___logo {
 		@apply flex flex-col self-center mx-4;
-		width: 13rem;
+		width: 10rem;
 	}
 
-	.Navbar___links {
-		@apply flex self-center;
+	.Navbar___menu {
+		@apply flex self-center mx-4;
 	}
+
+	.Navbar___buttons {
+		@apply flex self-center mx-4 items-center;
+	}
+}
+
+.Navlink {
+	@apply text-lg;
+}
+
+.Navbutton {
+	@apply rounded-full border-0;
+}
+
+.main_Navbutton {
+	@extend .Navbutton;
+	@apply py-4 px-5 transition duration-200 hover:bg-secondary-light active:bg-secondary;
 }
