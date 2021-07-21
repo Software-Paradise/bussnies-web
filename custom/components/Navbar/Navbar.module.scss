@@ -1,22 +1,33 @@
+// breakpoints
+$phone: 640px;
+$tablet: 769px;
+$desktop: 1350px;
+
+//transparency
+$navbar_opacity: 0.9;
+
 .Navbar {
 	@apply w-screen flex font-medium text-xl fixed;
-	min-height: 7rem;
+	min-height: 5rem;
+	@media screen and (min-width: $desktop) {
+		min-height: 7rem;
+	}
 
 	&.lightTheme {
 		background: linear-gradient(
 			90deg,
-			rgba(224, 224, 224, 1) 0%,
-			rgba(255, 255, 255, 1) 50%,
-			rgba(224, 224, 224, 1) 100%
+			rgba(200, 200, 200, $navbar_opacity) 0%,
+			rgba(255, 255, 255, $navbar_opacity) 50%,
+			rgba(200, 200, 200, $navbar_opacity) 100%
 		);
 	}
 
 	&.darkTheme {
 		background: linear-gradient(
 			90deg,
-			rgb(0, 0, 0) 0%,
-			rgb(39, 39, 39) 50%,
-			rgb(0, 0, 0) 100%
+			rgb(0, 0, $navbar_opacity) 0%,
+			rgb(39, 39, 39, $navbar_opacity) 50%,
+			rgb(0, 0, 0, $navbar_opacity) 100%
 		);
 	}
 
