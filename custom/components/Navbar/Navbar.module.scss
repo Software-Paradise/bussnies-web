@@ -6,12 +6,16 @@ $desktop: 1350px;
 //transparency
 $navbar_opacity: 0.9;
 
+//constants
+$NAVBAR_HEIGHT_mobile: 5rem;
+$NAVBAR_HEIGHT_desktop: 7rem;
+
 //styles
 .Navbar {
-	@apply w-screen flex font-medium text-xl fixed;
-	min-height: 5rem;
+	@apply z-30 w-screen flex font-medium text-xl fixed;
+	min-height: $NAVBAR_HEIGHT_mobile;
 	@media screen and (min-width: $desktop) {
-		min-height: 7rem;
+		min-height: $NAVBAR_HEIGHT_desktop;
 	}
 
 	&_flow {
@@ -103,4 +107,30 @@ $navbar_opacity: 0.9;
 .main_Navbutton {
 	@extend .Navbutton;
 	@apply py-4 px-5 transition duration-200 hover:bg-secondary-light active:bg-secondary;
+}
+
+.SideMenu {
+	display: none;
+	opacity: 0;
+	margin-top: $NAVBAR_HEIGHT_mobile;
+	// top: calc(-100% - #{$NAVBAR_HEIGHT_mobile});
+	@media screen and (min-width: $desktop) {
+		margin-top: $NAVBAR_HEIGHT_desktop;
+		// top: calc(-100% - #{$NAVBAR_HEIGHT_desktop});
+	}
+
+	@apply w-screen h-screen bg-secondary;
+
+	&_opened {
+		opacity: 1;
+		display: flex;
+		animation: appearFromRight 0.3s ease-in-out;
+
+		@keyframes #{appearFromRight} {
+			0% {
+				transform: translateY(-100%);
+				opacity: 0;
+			}
+		}
+	}
 }

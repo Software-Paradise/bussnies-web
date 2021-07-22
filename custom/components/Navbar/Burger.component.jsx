@@ -8,9 +8,11 @@ import styles from './Burger.module.scss'
  * @param Icon it must be inserted as a child of the Burger element
  * @returns {React.FunctionComponent}
  */
-function Burger({ children, className = '' }) {
+function Burger({ children, className = '', onClick = () => null }) {
 	return (
-		<button className={`${styles.Burger} ${className}`}>{children}</button>
+		<button onClick={onClick} className={`${styles.Burger} ${className}`}>
+			{children}
+		</button>
 	)
 }
 

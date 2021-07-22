@@ -1,0 +1,11 @@
+.SideMenu {
+	@apply z-20 fixed flex-col justify-center items-center bg-secondary text-white;
+
+	.CloseButton {
+		@apply absolute top-4 right-2 bg-transparent text-info-light text-3xl p-4;
+	}
+
+	.Navlink {
+		@apply text-xl;
+	}
+}

@@ -1,5 +1,5 @@
 //react import
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 //next import
 import Image from 'next/image'
 //styles import
@@ -7,6 +7,7 @@ import styles from './Navbar.module.scss'
 //component import
 import Navlink from './Navlink.component'
 import Burger from './Burger.component'
+import SideMenu from './SideMenu.component'
 //icon imports
 import { FiMenu } from 'react-icons/fi'
 
@@ -26,8 +27,11 @@ function Navbar({
 	buttons = null,
 	dark = false,
 }) {
+	//constants and hooks
+	const [menuOpened, setMenuOpened] = useState(false)
 	const flowSelected = logoPosition
 
+	//Flow options depending on logoPosition prop, it applies certain justification styles on navbar, menu and buttons
 	const FLOW_OPTIONS = {
 		left: {
 			nav: styles.Navbar_flow_left,
@@ -49,73 +53,97 @@ function Navbar({
 
 	const flow = FLOW_OPTIONS[flowSelected] || DEFAULT_FLOW
 
+	// Functions to open and close side menu on responsive design
+	const openSideMenu = e => {
+		setMenuOpened(true)
+	}
+	const closeSideMenu = e => {
+		setMenuOpened(false)
+	}
+
 	return (
-		<nav
-			className={`${styles.Navbar} ${
-				dark ? styles.darkTheme : styles.lightTheme
-			} ${flow.nav}`}>
-			<>
-				{/* {if logo with position left or right} */}
-				{logo && logoPosition !== 'center' && (
-					<div className={styles.Navbar___logo}>
-						<Image alt={logo?.alt} src={logo?.src} />
+		<>
+			<nav
+				className={`${styles.Navbar} ${
+					dark ? styles.darkTheme : styles.lightTheme
+				} ${flow.nav}`}>
+				<>
+					{/* {if logo with position left or right} */}
+					{logo && logoPosition !== 'center' && (
+						<div className={styles.Navbar___logo}>
+							<Image alt={logo?.alt} src={logo?.src} />
+						</div>
+					)}
+					{/* {if there is a links array, then render it} */}
+					<div className={`${styles.Navbar___menu} ${flow.menu}`}>
+						{links?.map(({ label, to }, index) => (
+							<Fragment key={`${index}_${label}`}>
+								<Navlink
+									label={label}
+									to={to}
+									className={`${styles.Navlink} ${
+										dark
+											? 'text-info-light'
+											: 'text-secondary-dark'
+									} ${
+										index === 0
+											? 'font-bold'
+											: 'font-medium'
+									}`}
+								/>
+								{index < links.length - 1 && (
+									<div
+										style={{ width: '3px' }}
+										className="bg-secondary-light h-auto z-50"
+									/>
+								)}
+							</Fragment>
+						))}
 					</div>
-				)}
-				{/* {if there is a links array, then render it} */}
-				<div className={`${styles.Navbar___menu} ${flow.menu}`}>
-					{links?.map(({ label, to }, index) => (
-						<Fragment key={`${index}_${label}`}>
+					{/* {if logo with position center} */}
+					{logo && logoPosition === 'center' && (
+						<div className={`${styles.Navbar___logo}`}>
+							<Image alt={logo?.alt} src={logo?.src} />
+						</div>
+					)}
+					{/* {array of button styled links} */}
+					<div
+						className={`${styles.Navbar___buttons} ${flow.buttons}`}>
+						{buttons?.map(({ label, to }, index) => (
 							<Navlink
+								key={`${index}_${label}`}
 								label={label}
 								to={to}
 								className={`${styles.Navlink} ${
+									styles.Navbutton
+								}  ${
 									dark
 										? 'text-info-light'
 										: 'text-secondary-dark'
-								} ${index === 0 ? 'font-bold' : 'font-medium'}`}
+								} ${
+									index === buttons.length - 1 &&
+									(_ =>
+										dark
+											? `${styles.main_Navbutton} bg-white text-bgDark hover:text-white`
+											: `${styles.main_Navbutton} bg-bgDark text-white`)()
+								}`}
 							/>
-							{index < links.length - 1 && (
-								<div
-									style={{ width: '3px' }}
-									className="bg-secondary-light h-auto z-50"
-								/>
-							)}
-						</Fragment>
-					))}
-				</div>
-				{/* {if logo with position center} */}
-				{logo && logoPosition === 'center' && (
-					<div className={`${styles.Navbar___logo}`}>
-						<Image alt={logo?.alt} src={logo?.src} />
+						))}
 					</div>
-				)}
-				{/* {array of button styled links} */}
-				<div className={`${styles.Navbar___buttons} ${flow.buttons}`}>
-					{buttons?.map(({ label, to }, index) => (
-						<Navlink
-							key={`${index}_${label}`}
-							label={label}
-							to={to}
-							className={`${styles.Navlink} ${
-								styles.Navbutton
-							}  ${
-								dark ? 'text-info-light' : 'text-secondary-dark'
-							} ${
-								index === buttons.length - 1 &&
-								(_ =>
-									dark
-										? `${styles.main_Navbutton} bg-white text-bgDark hover:text-white`
-										: `${styles.main_Navbutton} bg-bgDark text-white`)()
-							}`}
-						/>
-					))}
-				</div>
-				{/* burger with menu items in case of smaller screen devices */}
-				<Burger className={styles.Burger}>
-					<FiMenu />
-				</Burger>
-			</>
-		</nav>
+					{/* burger with menu items in case of smaller screen devices */}
+					<Burger onClick={openSideMenu} className={styles.Burger}>
+						<FiMenu />
+					</Burger>
+				</>
+			</nav>
+			<SideMenu
+				items={links}
+				onClose={closeSideMenu}
+				className={`${styles.SideMenu} ${
+					menuOpened && styles.SideMenu_opened
+				}`}
+			/>
+		</>
 	)
 }
 
