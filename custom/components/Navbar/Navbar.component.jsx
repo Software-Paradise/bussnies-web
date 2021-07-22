@@ -6,6 +6,9 @@ import Image from 'next/image'
 import styles from './Navbar.module.scss'
 //component import
 import Navlink from './Navlink.component'
+import Burger from './Burger.component'
+//icon imports
+import { FiMenu } from 'react-icons/fi'
 
 /**
  * Custom navbar
@@ -23,22 +26,28 @@ function Navbar({
 	buttons = null,
 	dark = false,
 }) {
+	const flowSelected = logoPosition
+
 	const FLOW_OPTIONS = {
-		left: { nav: 'justify-start', menu: '', buttons: 'absolute right-0' },
+		left: {
+			nav: styles.Navbar_flow_left,
+			menu: '',
+			buttons: styles.Navbar___buttons_flow_left,
+		},
 		center: {
-			nav: 'justify-center',
-			menu: 'absolute left-8',
-			buttons: 'absolute right-8',
+			nav: styles.Navbar_flow_center,
+			menu: styles.Navbar___menu_flow_center,
+			buttons: styles.Navbar___buttons_flow_center,
 		},
 		right: {
-			nav: 'flex-row-reverse',
+			nav: styles.Navbar_flow_right,
 			menu: '',
-			buttons: 'absolute left-0 flex-row-reverse',
+			buttons: styles.Navbar___buttons_flow_right,
 		},
 	}
-	const DEFAULT_FLOW = 'justify-start'
+	const DEFAULT_FLOW = FLOW_OPTIONS['left']
 
-	const flow = FLOW_OPTIONS[logoPosition] || DEFAULT_FLOW
+	const flow = FLOW_OPTIONS[flowSelected] || DEFAULT_FLOW
 
 	return (
 		<nav
@@ -93,7 +102,7 @@ function Navbar({
 								dark ? 'text-info-light' : 'text-secondary-dark'
 							} ${
 								index === buttons.length - 1 &&
-								(() =>
+								(_ =>
 									dark
 										? `${styles.main_Navbutton} bg-white text-bgDark hover:text-white`
 										: `${styles.main_Navbutton} bg-bgDark text-white`)()
@@ -101,6 +110,10 @@ function Navbar({
 						/>
 					))}
 				</div>
+				{/* burger with menu items in case of smaller screen devices */}
+				<Burger className={styles.Burger}>
+					<FiMenu />
+				</Burger>
 			</>
 		</nav>
 	)

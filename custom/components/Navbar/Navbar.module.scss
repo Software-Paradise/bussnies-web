@@ -1,16 +1,32 @@
 // breakpoints
-$phone: 640px;
-$tablet: 769px;
+$phone: 600px;
+$tablet: 768px;
 $desktop: 1350px;
 
 //transparency
 $navbar_opacity: 0.9;
 
+//styles
 .Navbar {
 	@apply w-screen flex font-medium text-xl fixed;
 	min-height: 5rem;
 	@media screen and (min-width: $desktop) {
 		min-height: 7rem;
+	}
+
+	&_flow {
+		&_left {
+			@apply justify-start;
+		}
+		&_center {
+			@extend .Navbar_flow_left;
+			@media screen and (min-width: $desktop) {
+				@apply justify-center;
+			}
+		}
+		&_right {
+			@apply flex-row-reverse;
+		}
 	}
 
 	&.lightTheme {
@@ -31,17 +47,48 @@ $navbar_opacity: 0.9;
 		);
 	}
 
-	.Navbar___logo {
+	&___logo {
 		@apply flex flex-col self-center mx-4;
 		width: 10rem;
 	}
 
-	.Navbar___menu {
-		@apply flex self-center mx-4;
+	&___menu {
+		@apply hidden self-center mx-4;
+		@media screen and (min-width: $desktop) {
+			@apply flex;
+		}
+
+		&_flow {
+			&_center {
+				@apply absolute left-8;
+			}
+		}
 	}
 
-	.Navbar___buttons {
-		@apply flex self-center mx-4 items-center;
+	&___buttons {
+		@apply hidden;
+		@media screen and (min-width: $phone) {
+			@apply flex self-center mx-4 items-center;
+		}
+
+		&_flow {
+			&_left {
+				@apply absolute right-0;
+			}
+			&_center {
+				@apply absolute right-16;
+			}
+			&_right {
+				@apply absolute left-0 flex-row-reverse;
+			}
+		}
+	}
+
+	.Burger {
+		@apply absolute right-0 self-center;
+		@media screen and (min-width: $desktop) {
+			@apply hidden;
+		}
 	}
 }
 
