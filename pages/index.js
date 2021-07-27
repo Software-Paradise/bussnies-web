@@ -37,7 +37,7 @@ export default function Home() {
 				<meta name="msapplication-TileColor" content="#2d2d2d"></meta>
 				<meta name="msapplication-TileImage" content="/192.png"></meta>
 			</Head>
-			<main className="font-sans bg-gray-900">
+			<main className="font-sans h-screen">
 				<LandingLayout>
 					<TopScreen />
 					<InfoScreen />

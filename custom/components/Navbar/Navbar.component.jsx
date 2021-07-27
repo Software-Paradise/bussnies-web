@@ -1,46 +1,92 @@
 //react import
-import React from 'react'
+import React, { Fragment, useState } from 'react'
 //next import
 import Image from 'next/image'
 //styles import
 import styles from './Navbar.module.scss'
 //component import
 import Navlink from './Navlink.component'
+import Burger from './Burger.component'
+import SideMenu from './SideMenu.component'
+//icon imports
+import { FiMenu } from 'react-icons/fi'
 
 /**
  * Custom navbar
- * @param
+ * @param {Object} object with keys "src" (source for image to show as logo) and "alt" (alternative text)
+ * @param {String} logoPosition it can be left, center or right, left as default
+ * @param {Array} links array of objects, each one with keys "label" and "to"
+ * @param {Array} buttons array of objects, each one with keys "label" and "to", these are going to be shown as buttons
+ * @param {Boolean} dark if true then background is white, if false then background is black
  * @returns {React.FunctionComponent}
  */
 function Navbar({
 	logo = null,
 	logoPosition = 'left',
 	links = null,
-	leftLinks = Math.ceil(links.lenth / 2),
-	rightLinks = Math.floor(links.lenth / 2),
+	buttons = null,
 	dark = false,
 }) {
+	//constants and hooks
+	const [menuOpened, setMenuOpened] = useState(false)
+	const [menuClosing, setMenuClosing] = useState(false)
+	const flowSelected = logoPosition
+
+	//Flow options depending on logoPosition prop, it applies certain justification styles on navbar, menu and buttons
+	const FLOW_OPTIONS = {
+		left: {
+			nav: styles.Navbar_flow_left,
+			menu: '',
+			buttons: styles.Navbar___buttons_flow_left,
+		},
+		center: {
+			nav: styles.Navbar_flow_center,
+			menu: styles.Navbar___menu_flow_center,
+			buttons: styles.Navbar___buttons_flow_center,
+		},
+		right: {
+			nav: styles.Navbar_flow_right,
+			menu: '',
+			buttons: styles.Navbar___buttons_flow_right,
+		},
+	}
+	const DEFAULT_FLOW = FLOW_OPTIONS['left']
+
+	const flow = FLOW_OPTIONS[flowSelected] || DEFAULT_FLOW
+
+	// Functions to open and close side menu on responsive design
+	const openSideMenu = _ => {
+		setMenuOpened(true)
+	}
+	const closeSideMenu = _ => {
+		setMenuOpened(false)
+		setMenuClosing(true)
+		setTimeout(() => {
+			setMenuClosing(false)
+		}, 280)
+	}
+
 	return (
-		<nav
-			className={`${styles.Navbar} ${
-				dark ? styles.darkTheme : styles.lightTheme
-			}`}>
-			{/* logo position is neither right or center, it is assumed to be left */}
-			{logoPosition !== 'center' && logoPosition !== 'right' && (
+		<>
+			<nav
+				className={`${styles.Navbar} ${
+					dark ? styles.darkTheme : styles.lightTheme
+				} ${flow.nav}`}>
 				<>
-					{logo && (
+					{/* {if logo with position left or right} */}
+					{logo && logoPosition !== 'center' && (
 						<div className={styles.Navbar___logo}>
 							<Image alt={logo?.alt} src={logo?.src} />
 						</div>
 					)}
-					<div className={styles.Navbar___links}>
+					{/* {if there is a links array, then render it} */}
+					<div className={`${styles.Navbar___menu} ${flow.menu}`}>
 						{links?.map(({ label, to }, index) => (
-							<>
+							<Fragment key={`${index}_${label}`}>
 								<Navlink
-									key={`${index}_${label}`}
 									label={label}
 									to={to}
-									className={`${
+									className={`${styles.Navlink} ${
 										dark
 											? 'text-info-light'
 											: 'text-secondary-dark'
@@ -52,22 +98,58 @@ function Navbar({
 								/>
 								{index < links.length - 1 && (
 									<div
-										style={{ width: '2px' }}
+										style={{ width: '3px' }}
 										className="bg-secondary-light h-auto z-50"
 									/>
 								)}
-							</>
+							</Fragment>
 						))}
 					</div>
+					{/* {if logo with position center} */}
+					{logo && logoPosition === 'center' && (
+						<div className={`${styles.Navbar___logo}`}>
+							<Image alt={logo?.alt} src={logo?.src} />
+						</div>
+					)}
+					{/* {array of button styled links} */}
+					<div
+						className={`${styles.Navbar___buttons} ${flow.buttons}`}>
+						{buttons?.map(({ label, to }, index) => (
+							<Navlink
+								key={`${index}_${label}`}
+								label={label}
+								to={to}
+								className={`${styles.Navlink} ${
+									styles.Navbutton
+								}  ${
+									dark
+										? 'text-info-light'
+										: 'text-secondary-dark'
+								} ${
+									index === buttons.length - 1 &&
+									(_ =>
+										dark
+											? `${styles.main_Navbutton} bg-white text-bgDark hover:text-white`
+											: `${styles.main_Navbutton} bg-bgDark text-white`)()
+								}`}
+							/>
+						))}
+					</div>
+					{/* burger with menu items in case of smaller screen devices */}
+					<Burger onClick={openSideMenu} className={styles.Burger}>
+						<FiMenu />
+					</Burger>
 				</>
-			)}
-
-			{/* logo position is center */}
-			{logoPosition === 'center' && null}
-
-			{/* logo position is right */}
-			{logoPosition === 'right' && null}
-		</nav>
+			</nav>
+			{/* side menu to show only on devices smaller than desktop */}
+			<SideMenu
+				items={[...links, ...buttons]}
+				onClose={closeSideMenu}
+				className={`${styles.SideMenu} ${
+					menuOpened && styles.SideMenu_opened
+				} ${menuClosing && styles.SideMenu_closing}`}
+			/>
+		</>
 	)
 }
 
