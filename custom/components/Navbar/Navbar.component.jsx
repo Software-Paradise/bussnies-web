@@ -29,6 +29,7 @@ function Navbar({
 }) {
 	//constants and hooks
 	const [menuOpened, setMenuOpened] = useState(false)
+	const [menuClosing, setMenuClosing] = useState(false)
 	const flowSelected = logoPosition
 
 	//Flow options depending on logoPosition prop, it applies certain justification styles on navbar, menu and buttons
@@ -54,11 +55,15 @@ function Navbar({
 	const flow = FLOW_OPTIONS[flowSelected] || DEFAULT_FLOW
 
 	// Functions to open and close side menu on responsive design
-	const openSideMenu = e => {
+	const openSideMenu = _ => {
 		setMenuOpened(true)
 	}
-	const closeSideMenu = e => {
+	const closeSideMenu = _ => {
 		setMenuOpened(false)
+		setMenuClosing(true)
+		setTimeout(() => {
+			setMenuClosing(false)
+		}, 280)
 	}
 
 	return (
@@ -136,12 +141,13 @@ function Navbar({
 					</Burger>
 				</>
 			</nav>
+			{/* side menu to show only on devices smaller than desktop */}
 			<SideMenu
-				items={links}
+				items={[...links, ...buttons]}
 				onClose={closeSideMenu}
 				className={`${styles.SideMenu} ${
 					menuOpened && styles.SideMenu_opened
-				}`}
+				} ${menuClosing && styles.SideMenu_closing}`}
 			/>
 		</>
 	)

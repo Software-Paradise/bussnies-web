@@ -1,3 +1,8 @@
+// breakpoints
+$phone: 600px;
+$tablet: 768px;
+$desktop: 1350px;
+
 .SideMenu {
 	@apply z-20 fixed flex-col justify-center items-center bg-secondary text-white;
 
@@ -6,6 +11,9 @@
 	}
 
 	.Navlink {
-		@apply text-xl;
+		@apply text-xl my-4;
+		@media screen and (min-width: $tablet) and (orientation: portrait) {
+			@apply text-4xl my-10;
+		}
 	}
 }
