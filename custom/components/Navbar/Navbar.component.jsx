@@ -1,9 +1,8 @@
 //react import
 import React, { Fragment, useState } from 'react'
+import { Link } from 'react-scroll'
 //next import
 import Image from 'next/image'
-//styles import
-import styles from './Navbar.module.scss'
 //component import
 import Navlink from './Navlink.component'
 import Burger from './Burger.component'
@@ -26,6 +25,7 @@ function Navbar({
 	links = null,
 	buttons = null,
 	dark = false,
+	className = '',
 }) {
 	//constants and hooks
 	const [menuOpened, setMenuOpened] = useState(false)
@@ -35,19 +35,19 @@ function Navbar({
 	//Flow options depending on logoPosition prop, it applies certain justification styles on navbar, menu and buttons
 	const FLOW_OPTIONS = {
 		left: {
-			nav: styles.Navbar_flow_left,
+			nav: 'Navbar_flow_left',
 			menu: '',
-			buttons: styles.Navbar___buttons_flow_left,
+			buttons: 'Navbar___buttons_flow_left',
 		},
 		center: {
-			nav: styles.Navbar_flow_center,
-			menu: styles.Navbar___menu_flow_center,
-			buttons: styles.Navbar___buttons_flow_center,
+			nav: 'Navbar_flow_center',
+			menu: 'Navbar___menu_flow_center',
+			buttons: 'Navbar___buttons_flow_center',
 		},
 		right: {
-			nav: styles.Navbar_flow_right,
+			nav: 'Navbar_flow_right',
 			menu: '',
-			buttons: styles.Navbar___buttons_flow_right,
+			buttons: 'Navbar___buttons_flow_right',
 		},
 	}
 	const DEFAULT_FLOW = FLOW_OPTIONS['left']
@@ -69,37 +69,43 @@ function Navbar({
 	return (
 		<>
 			<nav
-				className={`${styles.Navbar} ${
-					dark ? styles.darkTheme : styles.lightTheme
-				} ${flow.nav}`}>
+				className={`Navbar ${dark ? 'darkTheme' : 'lightTheme'} ${
+					flow.nav
+				} ${className}`}>
 				<>
 					{/* {if logo with position left or right} */}
 					{logo && logoPosition !== 'center' && (
-						<div className={styles.Navbar___logo}>
-							<Image alt={logo?.alt} src={logo?.src} />
-						</div>
+						<Link
+							to="TopScreen"
+							duration={300}
+							delay={50}
+							smooth={true}>
+							<div className="Navbar___logo">
+								<Image alt={logo?.alt} src={logo?.src} />
+							</div>
+						</Link>
 					)}
 					{/* {if there is a links array, then render it} */}
-					<div className={`${styles.Navbar___menu} ${flow.menu}`}>
+					<div className={`Navbar___menu ${flow.menu}`}>
 						{links?.map(({ label, to }, index) => (
 							<Fragment key={`${index}_${label}`}>
 								<Navlink
 									label={label}
 									to={to}
-									className={`${styles.Navlink} ${
+									className={`${
 										dark
 											? 'text-info-light'
-											: 'text-secondary-dark'
+											: 'text-primary'
 									} ${
 										index === 0
-											? 'font-bold'
-											: 'font-medium'
+											? 'font-bold text-black'
+											: 'font-bold'
 									}`}
 								/>
 								{index < links.length - 1 && (
 									<div
 										style={{ width: '3px' }}
-										className="bg-secondary-light h-auto z-50"
+										className="bg-secondary-light h-auto"
 									/>
 								)}
 							</Fragment>
@@ -107,36 +113,36 @@ function Navbar({
 					</div>
 					{/* {if logo with position center} */}
 					{logo && logoPosition === 'center' && (
-						<div className={`${styles.Navbar___logo}`}>
-							<Image alt={logo?.alt} src={logo?.src} />
-						</div>
+						<Link
+							to="TopScreen"
+							duration={300}
+							delay={50}
+							smooth={true}>
+							<div className="Navbar___logo">
+								<Image alt={logo?.alt} src={logo?.src} />
+							</div>
+						</Link>
 					)}
 					{/* {array of button styled links} */}
-					<div
-						className={`${styles.Navbar___buttons} ${flow.buttons}`}>
+					<div className={`Navbar___buttons ${flow.buttons}`}>
 						{buttons?.map(({ label, to }, index) => (
 							<Navlink
 								key={`${index}_${label}`}
 								label={label}
 								to={to}
-								className={`${styles.Navlink} ${
-									styles.Navbutton
-								}  ${
-									dark
-										? 'text-info-light'
-										: 'text-secondary-dark'
-								} ${
+								className={`Navbutton
+								  ${dark ? 'text-info-light' : 'text-primary'} ${
 									index === buttons.length - 1 &&
 									(_ =>
 										dark
-											? `${styles.main_Navbutton} bg-white text-bgDark hover:text-white`
-											: `${styles.main_Navbutton} bg-bgDark text-white`)()
+											? `main_Navbutton bg-white text-bgDark hover:text-white`
+											: `main_Navbutton bg-bgDark text-white`)()
 								}`}
 							/>
 						))}
 					</div>
 					{/* burger with menu items in case of smaller screen devices */}
-					<Burger onClick={openSideMenu} className={styles.Burger}>
+					<Burger onClick={openSideMenu} className="Burger">
 						<FiMenu />
 					</Burger>
 				</>
@@ -145,9 +151,9 @@ function Navbar({
 			<SideMenu
 				items={[...links, ...buttons]}
 				onClose={closeSideMenu}
-				className={`${styles.SideMenu} ${
-					menuOpened && styles.SideMenu_opened
-				} ${menuClosing && styles.SideMenu_closing}`}
+				className={`SideMenu ${menuOpened && 'SideMenu_opened'} ${
+					menuClosing && 'SideMenu_closing'
+				}`}
 			/>
 		</>
 	)

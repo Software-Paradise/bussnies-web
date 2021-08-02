@@ -1,0 +1,138 @@
+.Navbar {
+	@apply fixed w-full flex font-medium text-xl z-20;
+	min-height: $NAVBAR_HEIGHT_mobile;
+	@media screen and (min-width: $desktop) {
+		min-height: $NAVBAR_HEIGHT_desktop;
+	}
+
+	&_flow {
+		&_left {
+			@apply justify-start;
+		}
+		&_center {
+			@extend .Navbar_flow_left;
+			@media screen and (min-width: $desktop) {
+				@apply justify-center;
+			}
+		}
+		&_right {
+			@apply flex-row-reverse;
+		}
+	}
+
+	&.lightTheme {
+		background: linear-gradient(
+			90deg,
+			rgba(200, 200, 200, $navbar_opacity) 0%,
+			rgba(255, 255, 255, $navbar_opacity) 50%,
+			rgba(200, 200, 200, $navbar_opacity) 100%
+		);
+	}
+
+	&.darkTheme {
+		background: linear-gradient(
+			90deg,
+			rgb(0, 0, $navbar_opacity) 0%,
+			rgb(39, 39, 39, $navbar_opacity) 50%,
+			rgb(0, 0, 0, $navbar_opacity) 100%
+		);
+	}
+
+	&___logo {
+		@apply flex flex-col self-center mx-4 cursor-pointer;
+		width: 10rem;
+	}
+
+	&___menu {
+		@apply hidden self-center mx-4;
+		@media screen and (min-width: $desktop) {
+			@apply flex;
+		}
+
+		&_flow {
+			&_center {
+				@apply absolute left-8;
+			}
+		}
+	}
+
+	&___buttons {
+		@apply hidden;
+		@media screen and (min-width: $phone) {
+			@apply flex self-center mx-4 items-center;
+		}
+
+		&_flow {
+			&_left {
+				@apply absolute right-0;
+			}
+			&_center {
+				@apply absolute right-16;
+			}
+			&_right {
+				@apply absolute left-0 flex-row-reverse;
+			}
+		}
+	}
+
+	.Burger {
+		@apply absolute right-0 self-center;
+		@media screen and (min-width: $desktop) {
+			@apply hidden;
+		}
+	}
+}
+
+.Navlink {
+	@apply text-lg;
+}
+
+.Navbutton {
+	@apply rounded-full border-0 font-bold;
+}
+
+.main_Navbutton {
+	@extend .Navbutton;
+	@apply py-4 px-5 transition duration-200 hover:bg-secondary-light active:bg-secondary;
+}
+
+.SideMenu {
+	display: none;
+	opacity: 0;
+	// margin-top: $NAVBAR_HEIGHT_mobile;
+	@apply w-screen h-screen bg-secondary;
+	// top: calc(-100% - #{$NAVBAR_HEIGHT_mobile});
+	// @media screen and (min-width: $desktop) {
+	// 	margin-top: $NAVBAR_HEIGHT_desktop;
+	// }
+
+	&_closing {
+		opacity: 0.9;
+		display: flex;
+
+		animation: dissappearToTop 0.3s ease-in-out;
+		@keyframes #{dissappearToTop} {
+			100% {
+				transform: translateY(-100%);
+				opacity: 0;
+			}
+		}
+	}
+
+	&_opened {
+		opacity: 0.9;
+		display: flex;
+		@media screen and (min-width: $desktop) {
+			opacity: 0;
+			display: none;
+		}
+
+		animation: appearFromTop 0.3s ease-in-out;
+		@keyframes #{appearFromTop} {
+			0% {
+				transform: translateY(-100%);
+				opacity: 0;
+			}
+		}
+	}
+}

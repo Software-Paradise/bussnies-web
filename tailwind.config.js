@@ -29,7 +29,7 @@ module.exports = {
 		},
 		fontWeight: {
 			thin: 100,
-			regular: 400,
+			regular: 300,
 			medium: 500,
 			bold: 700,
 			black: 900,

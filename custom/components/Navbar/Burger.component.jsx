@@ -1,7 +1,5 @@
 //react imports
 import React from 'react'
-//styles import
-import styles from './Burger.module.scss'
 
 /**
  * Custom burger
@@ -10,7 +8,7 @@ import styles from './Burger.module.scss'
  */
 function Burger({ children, className = '', onClick = () => null }) {
 	return (
-		<button onClick={onClick} className={`${styles.Burger} ${className}`}>
+		<button onClick={onClick} className={`Burger ${className}`}>
 			{children}
 		</button>
 	)

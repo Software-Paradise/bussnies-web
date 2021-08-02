@@ -1,0 +1,20 @@
+#TopScreen {
+	@apply relative;
+	&_layer {
+		@apply flex flex-col justify-center items-center;
+		background: linear-gradient(
+			180deg,
+			rgba(36, 63, 71, 0.7) 80%,
+			rgb(0, 0, 0) 95%
+		);
+
+		#MainTitle {
+			@apply text-8xl font-bold text-bgLight;
+		}
+		#MainSubtitle {
+			@apply text-4xl font-regular border-none text-white my-4;
+		}
+		& .Button {
+		}
+	}
+}

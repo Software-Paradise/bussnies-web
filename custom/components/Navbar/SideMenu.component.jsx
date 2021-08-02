@@ -1,7 +1,5 @@
 //react imports
 import React from 'react'
-//styles import
-import styles from './SideMenu.module.scss'
 //icons import
 import { FiX } from 'react-icons/fi'
 //component imports
@@ -16,8 +14,8 @@ import Navlink from './Navlink.component'
  */
 function SideMenu({ items = null, className = '', onClose = () => null }) {
 	return (
-		<div className={`${styles.SideMenu} ${className}`}>
-			<button className={styles.CloseButton} onClick={onClose}>
+		<div className={`SideMenu ${className}`}>
+			<button className="CloseButton" onClick={onClose}>
 				<FiX />
 			</button>
 			{items?.map(({ label, to }, index) => (
@@ -25,7 +23,7 @@ function SideMenu({ items = null, className = '', onClose = () => null }) {
 					key={`${index}_${label}`}
 					label={label}
 					to={to}
-					className={styles.Navlink}
+					className='Navlink'
 				/>
 			))}
 		</div>

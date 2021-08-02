@@ -1,9 +1,6 @@
 //react import
 import React from 'react'
-//next import
-import Link from 'next/link'
-//style import
-import styles from './Navlink.module.scss'
+import { Link } from 'react-scroll'
 
 /**
  * Custom navlink button
@@ -14,8 +11,13 @@ import styles from './Navlink.module.scss'
  */
 function Navlink({ label = 'NavLink', to = '#', className = '' }) {
 	return (
-		<Link href={to}>
-			<a className={`${styles.Navlink} ${className}`}>{label}</a>
+		<Link
+			to={to}
+			duration={300}
+			delay={50}
+			smooth={true}
+			className={`Navlink ${className}`}>
+			{label}
 		</Link>
 	)
 }

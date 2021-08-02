@@ -1,0 +1,17 @@
+.SideMenu {
+	@apply z-30 fixed flex-col justify-center items-center bg-secondary text-white overflow-auto;
+
+	.CloseButton {
+		@apply absolute top-8 right-2 bg-transparent text-info-light text-3xl p-4;
+	}
+
+	.Navlink {
+		@apply text-xl my-4;
+		@media screen and (min-height: $phone_height) and (orientation: landscape) {
+			@apply my-2;
+		}
+		@media screen and (min-width: $tablet) and (orientation: portrait) {
+			@apply text-3xl my-5;
+		}
+	}
+}

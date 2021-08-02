@@ -1,3 +1,52 @@
-main {
-	@apply overflow-hidden;
+//constants
+@import './constants.scss';
+
+//colos
+@import './colors.scss';
+
+//mixins
+@import './mixins.scss';
+
+//components
+@import '../custom/components/Navbar/Navbar.scss';
+@import '../custom/components/Navbar/Burger.scss';
+@import '../custom/components/Navbar/Navlink.scss';
+@import '../custom/components/Navbar/SideMenu.scss';
+@import '../custom/components/VideoBackground/VideoBackground.scss';
+@import '../custom/components/Footer/Footer.scss';
+@import '../custom/components/Layer/Layer.scss';
+@import '../custom/components/Button/Button.scss';
+
+//layouts
+@import '../layouts/Landing/Landing.scss';
+
+//screens
+@import '../screens/styles/Top.scss';
+
+//html
+#Main {
+	font-family: 'Roboto', sans-serif;
+	@apply h-auto select-none;
+}
+body,
+html {
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height: 100vh;
+	width: 100%;
+}
+
+/* Custom scrollbar */
+*::-webkit-scrollbar {
+	@apply bg-gray-600 rounded w-1 h-1;
+}
+*::-webkit-scrollbar-thumb {
+	@apply bg-secondary-light rounded;
+}
+
+/* global styles for all screens */
+.Screen {
+	@apply h-screen bg-info-light;
+	min-height: 40rem;
 }

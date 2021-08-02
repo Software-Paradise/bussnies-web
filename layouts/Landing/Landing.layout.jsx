@@ -1,9 +1,7 @@
 //react imports
 import React from 'react'
-//style imports
-import styles from './Landing.module.scss'
 //component imports
-import { Navbar } from '../../custom/components'
+import { Navbar, Footer } from '../../custom/components'
 //assets import
 import { alysystemLogo } from '../../public'
 
@@ -14,26 +12,28 @@ import { alysystemLogo } from '../../public'
  */
 function Landing({ children }) {
 	const links = [
-		{ label: 'Quiénes somos', to: '#' },
-		{ label: 'Servicios', to: '#' },
-		{ label: 'Beneficios', to: '#' },
-		{ label: 'Nuestro equipo', to: '#' },
+		{ label: 'Quiénes somos', to: 'InfoScreen' },
+		{ label: 'Servicios', to: 'AppScreen' },
+		{ label: 'Beneficios', to: 'BenefitsScreen' },
+		{ label: 'Nuestro equipo', to: 'TeamScreen' },
 	]
 
 	const buttons = [
-		{ label: 'Criptomonedas', to: '#' },
-		{ label: 'Nuestras Apps', to: '#' },
+		{ label: 'Criptomonedas', to: 'CryptoScreen' },
+		{ label: 'Nuestras Apps', to: 'AppScreen' },
 	]
 
 	return (
-		<div className={styles.Landing}>
+		<div id="LandingLayout">
 			<Navbar
 				logo={{ src: alysystemLogo, alt: 'AlySystem logo' }}
 				logoPosition="center"
 				links={links}
 				buttons={buttons}
+				className="Navbar"
 			/>
 			{children}
+			<Footer />
 		</div>
 	)
 }
