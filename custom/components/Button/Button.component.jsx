@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
  * @returns {React.FunctionComponent}
  */
 const Button = ({
-	label = '',
 	className = '',
 	variant = '',
 	disabled = false,
@@ -13,7 +12,21 @@ const Button = ({
 	onClick = () => {},
 	...rest
 }) => {
-	return <button {...rest}></button>
+	const variantList = {
+		outlined: 'outlined',
+		filled: 'filled',
+	}
+	const variantChosen = variantList[variant] || 'outlined'
+
+	return (
+		<button
+			disabled={disabled}
+			onClick={onClick}
+			className={`Button ${variantChosen} ${className}`}
+			{...rest}>
+			{children}
+		</button>
+	)
 }
 
 export default React.memo(Button)

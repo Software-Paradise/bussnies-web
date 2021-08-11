@@ -9,14 +9,20 @@ import { Link } from 'react-scroll'
  * @param {string} className class to apply styles
  * @returns {React.FunctionComponent}
  */
-function Navlink({ label = 'NavLink', to = '#', className = '' }) {
+function Navlink({
+	label = 'NavLink',
+	to = '#',
+	className = '',
+	onClick = () => null,
+}) {
 	return (
 		<Link
 			to={to}
 			duration={300}
 			delay={50}
 			smooth={true}
-			className={`Navlink ${className}`}>
+			className={`Navlink ${className}`}
+			onClick={onClick}>
 			{label}
 		</Link>
 	)

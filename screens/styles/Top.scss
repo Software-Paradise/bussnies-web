@@ -1,7 +1,8 @@
 #TopScreen {
 	@apply relative;
+
 	&_layer {
-		@apply flex flex-col justify-center items-center;
+		@apply relative flex flex-col justify-center items-center;
 		background: linear-gradient(
 			180deg,
 			rgba(36, 63, 71, 0.7) 80%,
@@ -9,12 +10,76 @@
 		);
 
 		#MainTitle {
-			@apply text-8xl font-bold text-bgLight;
+			@apply text-center text-6xl font-bold text-bgLight;
+			@media screen and (min-width: $phone) {
+				@apply text-8xl;
+			}
 		}
+
 		#MainSubtitle {
-			@apply text-4xl font-regular border-none text-white my-4;
+			@apply text-center text-3xl font-regular border-none text-white my-4;
+			@media screen and (min-width: $phone) {
+				@apply text-4xl;
+			}
 		}
-		& .Button {
+
+		#knowUs {
+			@apply absolute;
+			bottom: 20%;
+
+			&_button {
+				@apply text-2xl font-regular
+				text-white bg-secondary-light 
+				transition-colors duration-75 
+				hover:bg-info-light hover:text-secondary-light
+				active:bg-secondary-dark;
+
+				@media screen and (min-width: $phone) {
+					@apply text-4xl;
+				}
+			}
+
+			&_socialMedia {
+				@apply absolute w-full hidden justify-center text-secondary-light text-4xl
+				transition-opacity duration-300 opacity-0;
+				bottom: -120%;
+
+				.socialMedia_link {
+					@apply mx-1 transition-colors duration-150 hover:bg-info-light rounded-full p-2;
+				}
+
+				&.closing {
+					@apply flex opacity-100;
+
+					animation: dissappear 0.3s ease-in-out;
+					@keyframes #{dissappear} {
+						100% {
+							opacity: 0;
+						}
+					}
+				}
+
+				&.visible {
+					@apply flex opacity-100;
+
+					animation: appear 0.3s ease-in-out;
+					@keyframes #{appear} {
+						0% {
+							opacity: 0;
+						}
+					}
+				}
+			}
+		}
+
+		.Separator {
+			@apply absolute bottom-1;
+			background: linear-gradient(
+				90deg,
+				rgba($background_light, 0) 0%,
+				$background_light 50%,
+				rgba($background_light, 0) 100%
+			);
 		}
 	}
 }

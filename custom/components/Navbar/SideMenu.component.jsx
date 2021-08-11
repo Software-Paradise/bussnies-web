@@ -23,7 +23,8 @@ function SideMenu({ items = null, className = '', onClose = () => null }) {
 					key={`${index}_${label}`}
 					label={label}
 					to={to}
-					className='Navlink'
+					className="Navlink"
+					onClick={onClose}
 				/>
 			))}
 		</div>
