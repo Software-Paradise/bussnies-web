@@ -1,0 +1,47 @@
+#InfoScreen {
+	@apply relative flex flex-col items-center justify-evenly;
+	background: linear-gradient(180deg, $secondary -40%, black 30%);
+	min-height: calc(40rem - #{$NAVBAR_HEIGHT_mobile});
+
+	&_mainTitle {
+		@include title;
+		@apply mt-12;
+	}
+
+	&_paragraph {
+		@include info;
+		@apply text-info-light;
+		margin: 5% 0;
+		max-width: 90%;
+	}
+
+	&_buttonContainer {
+		@apply flex flex-col;
+
+		@media screen and (min-width: $tablet) {
+			@apply flex-row;
+		}
+
+		#VisionButton {
+			@apply text-lg py-4 px-24 m-1
+			text-secondary-light bg-secondary-dark 
+            transition-colors duration-100
+            hover:bg-info-light hover:text-secondary-dark;
+
+			@media screen and (min-width: $tablet) {
+				@apply text-3xl py-5 px-28 m-4;
+			}
+		}
+
+		#MisionButton {
+			@apply text-lg py-4 px-24 m-1
+			text-secondary-light bg-gray-700
+            transition-colors duration-100
+            hover:bg-info-light hover:text-secondary-dark;
+
+			@media screen and (min-width: $tablet) {
+				@apply text-3xl py-5 px-28 m-4;
+			}
+		}
+	}
+}

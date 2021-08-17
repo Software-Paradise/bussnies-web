@@ -1,5 +1,5 @@
 #TopScreen {
-	@apply relative;
+	@apply relative h-screen;
 
 	&_layer {
 		@apply relative flex flex-col justify-center items-center;

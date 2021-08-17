@@ -1,0 +1,17 @@
+@mixin title {
+	@apply text-center text-3xl font-bold text-bgLight;
+	@media screen and (min-width: $tablet) {
+		@apply text-6xl;
+	}
+}
+
+@mixin info {
+	@apply text-sm text-justify;
+	@media screen and (min-width: $tablet) {
+		@apply text-2xl text-center;
+	}
+	@media screen and (min-width: $desktop_HD) {
+		@apply text-3xl;
+		line-height: 3rem;
+	}
+}

@@ -23,6 +23,7 @@
 
 //screens
 @import '../screens/styles/Top.scss';
+@import '../screens/styles/Info.scss';
 
 //html
 #Main {
@@ -48,6 +49,11 @@ html {
 
 /* global styles for all screens */
 .Screen {
-	@apply h-screen bg-info-light;
+	@apply bg-info-light;
+	height: calc(100vh - #{$NAVBAR_HEIGHT_mobile});
 	min-height: 40rem;
+
+	@media screen and (min-width: $desktop) {
+		height: calc(100vh - #{$NAVBAR_HEIGHT_desktop});
+	}
 }

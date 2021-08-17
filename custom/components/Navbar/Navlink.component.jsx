@@ -1,6 +1,7 @@
 //react import
 import React from 'react'
 import { Link } from 'react-scroll'
+import useWindowDimensions from '../../../hooks/useWindowDimesions'
 
 /**
  * Custom navlink button
@@ -15,6 +16,10 @@ function Navlink({
 	className = '',
 	onClick = () => null,
 }) {
+	const { width } = useWindowDimensions()
+	let offset = width >= 1350 ? -96 : -80
+	console.log(width)
+
 	return (
 		<Link
 			to={to}
@@ -22,7 +27,8 @@ function Navlink({
 			delay={50}
 			smooth={true}
 			className={`Navlink ${className}`}
-			onClick={onClick}>
+			onClick={onClick}
+			offset={offset}>
 			{label}
 		</Link>
 	)
