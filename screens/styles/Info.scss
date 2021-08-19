@@ -3,6 +3,10 @@
 	background: linear-gradient(180deg, $secondary -40%, black 30%);
 	min-height: calc(40rem - #{$NAVBAR_HEIGHT_mobile});
 
+	@media screen and (min-width: $desktop) {
+		min-height: calc(40rem - #{$NAVBAR_HEIGHT_desktop});
+	}
+
 	&_mainTitle {
 		@include title;
 		@apply mt-12;
@@ -41,6 +45,53 @@
 
 			@media screen and (min-width: $tablet) {
 				@apply text-3xl py-5 px-28 m-4;
+			}
+		}
+	}
+
+	.InfoModal {
+		@include info;
+		@apply absolute bottom-8 hidden text-center cursor-pointer
+		transition-opacity duration-300 opacity-0
+		text-info-light bg-primary;
+		width: 95%;
+		padding: calc(25vh - #{$NAVBAR_HEIGHT_mobile}) 3rem;
+		border-radius: 12px;
+
+		@media screen and (min-width: $desktop) {
+			width: 50%;
+		}
+
+		&.visible {
+			@apply flex flex-col opacity-100;
+
+			animation: appear 0.3s ease-in-out;
+			@keyframes #{appear} {
+				0% {
+					opacity: 0;
+				}
+			}
+		}
+
+		&.closing {
+			@apply flex flex-col opacity-100;
+
+			animation: dissappear 0.3s ease-in-out;
+			@keyframes #{dissappear} {
+				100% {
+					opacity: 0;
+				}
+			}
+		}
+
+		h3 {
+			@apply text-lg text-bgLight mb-8;
+
+			@media screen and (min-width: $tablet) {
+				@apply text-3xl;
+			}
+			@media screen and (min-width: $desktop_HD) {
+				@apply text-4xl;
 			}
 		}
 	}

@@ -18,7 +18,6 @@ function Navlink({
 }) {
 	const { width } = useWindowDimensions()
 	let offset = width >= 1350 ? -96 : -80
-	console.log(width)
 
 	return (
 		<Link
